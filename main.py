@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, jsonify
 import yt_dlp
 import os
 
@@ -26,6 +26,10 @@ def download():
         mp3_file = base + ".mp3"
 
     return send_file(mp3_file, as_attachment=True)
+
+@app.route('/status', methods=['GET'])
+def status():
+    return jsonify({"status": "Server is running"})
 
 if __name__ == '__main__':
     if not os.path.exists('downloads'):
